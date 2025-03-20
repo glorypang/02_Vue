@@ -4,20 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      label {
+        margin: 0 5px;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      <h1>사용자목록</h1>
-      <span>정렬기준 : </span>
-      <input type="radio" name="select" id="id" />
-      <label for="id">id</label>
-      <input type="radio" name="select" id="name" />
-      <label for="name">name</label>
-      <input type="radio" name="select" id="usename" />
-      <label for="username">username</label>
-      <input type="radio" name="select" id="phone" />
-      <label for="phone">phone</label>
-
+      <h2>사용자목록</h2>
+      <div>
+        정렬기준:
+        <label>
+          <input
+            type="radio"
+            name="orderBy"
+            value="id"
+            v-model="orderBy"
+            selected
+          />id
+        </label>
+        <label>
+          <input type="radio" name="orderBy" value="name" v-model="orderBy" />
+          name
+        </label>
+        <label
+          ><input
+            type="radio"
+            name="orderBy"
+            value="username"
+            v-model="orderBy"
+          />
+          username</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="orderBy"
+            value="phone"
+            v-model="orderBy"
+          />phone</label
+        >
+      </div>
       <table>
         <thead>
           <tr>
@@ -29,12 +68,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in users" :key="user.id">
-            <td v-text="index+1"></td>
-            <td v-text="user.name"></td>
-            <td v-text="user.phone"></td>
-            <td v-text="user.region"></td>
-            <td v-text="user.company.name"></td>
+          <tr v-for="user in sortedUsers" :key="user.no">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.company.name}}</td>
           </tr>
         </tbody>
       </table>
@@ -279,8 +318,30 @@
         name: 'App',
         data() {
           return {
-            users: users,
+            orderBy: 'id',
           };
+        },
+
+        computed: {
+          sortedUsers() {
+            const orderBy = this.orderBy;
+            /* 
+            배열.sort( (a,b)=>{ return 정수 } )
+            - 배열 요소 정렬 메서드
+            - 매개변수로 비교 함수를 전달할 수 있음
+            - 비교 함수는 두 개의 인자를 받아 비교
+              - 비교 함수가 양수를 반환하면 a가 b보다 뒤에 정렬됨  (b,a)
+              - 비교 함수가 0을 반환하면 a와 b의 순서는 변경되지 않음 (a,b)
+              - 비교 함수가 음수를 반환하면 a가 b보다 앞에 정렬됨 (a,b)
+             */
+            users.sort((u1, u2) => {
+              if (u1[orderBy] > u2[orderBy]) return 1;
+              else if (u1[orderBy] === u2[orderBy]) return 0;
+              else return -1;
+            });
+
+            return users;
+          },
         },
       }).mount('#app');
     </script>
