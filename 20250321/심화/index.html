@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../기본/bootstrap.min.css" />
+
+    <!-- 나의 css 파일 -->
+    <style>
+      img {
+        background-size: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img class="img-fluid" src="./42727-1024x256-1.webp" alt="New York" />
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="javascript:void(0)"
+            ><i class="fa-solid fa-house"></i> Fullstack</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mynavbar"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">메뉴1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">메뉴2</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">메뉴3</a>
+              </li>
+            </ul>
+            <p class="text-white m-1"><i class="fa-solid fa-user"></i> admin</p>
+            <p class="text-white m-1">
+              <i class="fa-solid fa-right-from-bracket"></i>로그아웃
+            </p>
+          </div>
+        </div>
+      </nav>
+      <h1 class="mt-5"><i class="fa-solid fa-list"></i>글 목록</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>글 제목1</td>
+            <td>user01</td>
+            <td>2024-04-17</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>글 제목1</td>
+            <td>user01</td>
+            <td>2024-04-17</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>글 제목1</td>
+            <td>user01</td>
+            <td>2024-04-17</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>글 제목1</td>
+            <td>user01</td>
+            <td>2024-04-17</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>글 제목1</td>
+            <td>user01</td>
+            <td>2024-04-17</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <span></span>
+        <span>
+          <ul class="pagination justify-content-center" style="margin: 20px 0">
+            <li class="page-item">
+              <a class="page-link" href="#"
+                ><i class="fa-solid fa-backward-step"></i
+              ></a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#"
+                ><i class="fa-solid fa-chevron-left"></i
+              ></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">6</a></li>
+            <li class="page-item"><a class="page-link" href="#">7</a></li>
+            <li class="page-item"><a class="page-link" href="#">8</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">9</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">10</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#"
+                ><i class="fa-solid fa-chevron-right"></i
+              ></a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#"
+                ><i class="fa-solid fa-forward-step"></i
+              ></a>
+            </li>
+          </ul>
+        </span>
+        <span>
+          <button type="button" class="btn btn-primary">
+            <i class="fa-solid fa-pen-to-square" style="align-item: center"></i>
+            글쓰기
+          </button>
+        </span>
+      </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="../기본/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

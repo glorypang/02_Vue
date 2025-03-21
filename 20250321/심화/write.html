@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../기본/bootstrap.min.css" />
+
+    <!-- 나의 css 파일 -->
+  </head>
+  <body>
+    <div class="container">
+      <h1><i class="fa-solid fa-pen-to-square"></i> 새 글쓰기</h1>
+      <form action="/action_page.php">
+        <div class="mb-3 mt-3">
+          <label for="email" class="form-label">제목</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">작성자</label>
+          <input type="password" class="form-control" id="pwd" name="pswd" />
+        </div>
+        <div class="mb-3">
+          <label for="comment">내용</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            id="comment"
+            name="text"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-check"></i> 확인
+        </button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-rotate-left"></i> 취소
+        </button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-list-ul"></i> 목록
+        </button>
+      </form>
+    </div>
+    <!-- bootstrap js -->
+    <script src="../기본/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
