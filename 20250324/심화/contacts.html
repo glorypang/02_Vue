@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>우리반 Contact ❤️</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .form-control-sm {
+        padding: 2px 5px;
+        height: 28px;
+      }
+
+      .form-select-sm {
+        padding: 2px 5px;
+        height: 28px;
+      }
+
+      td {
+        vertical-align: middle;
+      }
+      .form-control-sm {
+        padding: 2px 5px;
+        height: 28px;
+      }
+
+      .form-select-sm {
+        padding: 2px 5px;
+        height: 28px;
+      }
+
+      td {
+        vertical-align: middle;
+      }
+
+      /* 테이블 열 너비 고정 */
+      .table th:nth-child(1),
+      .table td:nth-child(1) {
+        width: 15%; /* 이름 열 */
+      }
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        width: 15%; /* 성별 열 */
+      }
+      .table th:nth-child(3),
+      .table td:nth-child(3) {
+        width: 10%; /* 나이 열 */
+      }
+      .table th:nth-child(4),
+      .table td:nth-child(4) {
+        width: 25%; /* 이메일 열 */
+      }
+      .table th:nth-child(5),
+      .table td:nth-child(5) {
+        width: 20%; /* Github ID 열 */
+      }
+      .table th:nth-child(6),
+      .table td:nth-child(6) {
+        width: 15%; /* 관리 버튼 열 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container-lg">
+      <div class="card card-body bg-light">
+        <div class="title">우리반 Contact ❤️</div>
+      </div>
+
+      <!-- 입력 폼 -->
+      <div class="input-form card card-body mt-3">
+        <div class="row g-3">
+          <div class="col-md-2">
+            <input
+              type="text"
+              class="form-control"
+              v-model.trim="newContact.name"
+              placeholder="이름"
+            />
+          </div>
+          <div class="col-md-2">
+            <select class="form-select" v-model="newContact.gender">
+              <option value="">성별</option>
+              <option value="남">남</option>
+              <option value="여">여</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input
+              type="number"
+              class="form-control"
+              v-model.number="newContact.age"
+              placeholder="나이"
+            />
+          </div>
+          <div class="col-md-3">
+            <input
+              type="email"
+              class="form-control"
+              v-model.trim="newContact.email"
+              placeholder="이메일"
+            />
+          </div>
+          <div class="col-md-2">
+            <input
+              type="text"
+              class="form-control"
+              v-model.trim="newContact.github"
+              placeholder="github ID"
+            />
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary w-100" @click="addContact">
+              추가
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 연락처 목록 -->
+      <div class="contact-list mt-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>성별</th>
+              <th>나이</th>
+              <th>이메일</th>
+              <th>Github ID</th>
+              <th>관리</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="contact in contacts" :key="contact.id">
+              <!-- 일반 모드 -->
+              <template v-if="!contact.isEditing">
+                <td>{{contact.name}}</td>
+                <td>{{contact.gender}}</td>
+                <td>{{contact.age}}</td>
+                <td>{{contact.email}}</td>
+                <td>{{contact.github}}</td>
+                <td>
+                  <button
+                    class="btn btn-warning btn-sm me-1"
+                    @click="startEdit(contact.id)"
+                  >
+                    수정
+                  </button>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    @click="deleteContact(contact.id)"
+                  >
+                    삭제
+                  </button>
+                </td>
+              </template>
+              <!-- 수정 모드 -->
+              <template v-else>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    v-model="contact.editData.name"
+                  />
+                </td>
+                <td>
+                  <select
+                    class="form-select form-select-sm"
+                    v-model="contact.editData.gender"
+                  >
+                    <option value="남">남</option>
+                    <option value="여">여</option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    v-model="contact.editData.age"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    v-model="contact.editData.email"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    v-model="contact.editData.github"
+                  />
+                </td>
+                <td>
+                  <button
+                    class="btn btn-success btn-sm me-1"
+                    @click="saveEdit(contact)"
+                  >
+                    저장
+                  </button>
+                  <button
+                    class="btn btn-secondary btn-sm"
+                    @click="cancelEdit(contact)"
+                  >
+                    취소
+                  </button>
+                </td>
+              </template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      const vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return {
+            newContact: {
+              name: '',
+              gender: '',
+              age: '',
+              email: '',
+              github: '',
+            },
+            contacts: [
+              {
+                id: 1,
+                name: '홍길동',
+                gender: '남',
+                age: 20,
+                email: 'hong@example.com',
+                github: 'hongGD',
+                isEditing: false,
+              },
+              {
+                id: 2,
+                name: '짱구',
+                gender: '남',
+                age: 5,
+                email: 'janggu@example.com',
+                github: 'janggu',
+                isEditing: false,
+              },
+              {
+                id: 3,
+                name: '유리',
+                gender: '여',
+                age: 5,
+                email: 'yuri@example.com',
+                github: 'yuri',
+                isEditing: false,
+              },
+            ],
+          };
+        },
+        methods: {
+          /* 수정 모드 시작 */
+          startEdit(id) {
+            // 수정할 데이터 찾기
+            const index = this.contacts.findIndex(
+              (contact) => contact.id === id
+            );
+            this.contacts[index].isEditing = true;
+
+            // 수정할 데이터 복사(임시 데이터)
+            this.contacts[index].editData = {
+              name: this.contacts[index].name,
+              gender: this.contacts[index].gender,
+              age: this.contacts[index].age,
+              email: this.contacts[index].email,
+              github: this.contacts[index].github,
+            };
+
+            // 수정 모드 플래그 설정
+            // this.$set(contact, 'isEditing', true);
+          },
+
+          /* 수정 내용 저장 */
+          saveEdit(contact) {
+            // 수정된 데이터 저장
+            // Object.assign(target, source) : 소스 객체의 프로퍼티를 대상 객체에 복사
+            Object.assign(contact, contact.editData);
+
+            // 수정 모드 종료
+            contact.isEditing = false;
+            delete contact.editData; // 임시 데이터 삭제
+          },
+
+          /* 수정 취소 */
+          cancelEdit(contact) {
+            // 수정 모드 종료 및 임시 데이터 삭제
+            contact.isEditing = false;
+            delete contact.editData;
+          },
+
+          /* contact 추가 */
+          addContact() {
+            if (this.newContact.name && this.newContact.email) {
+              this.contacts.push({
+                id: Date.now(),
+                isEditing: false, // 수정 모드 플래그 추가
+                ...this.newContact,
+              });
+              // 입력 폼 초기화
+              this.newContact = {
+                name: '',
+                gender: '',
+                age: '',
+                email: '',
+                github: '',
+              };
+            }
+          },
+
+          /* contact 삭제 */
+          deleteContact(id) {
+            let index = this.contacts.findIndex((contact) => contact.id === id);
+            this.contacts.splice(index, 1);
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
