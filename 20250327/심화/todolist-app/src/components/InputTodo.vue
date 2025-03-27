@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div class="row mb-3">
     <div class="col">
       <div class="input-group">
@@ -20,22 +20,24 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref } from 'vue';
-const emit = defineEmits(['add-todo']);
+
+// ref()에 등록된 값 접근 방법 :  변수명.value
 const todo = ref('');
+
+// 부모로 방출할 이벤트 유효성 검사
+const emit = defineEmits(['add-todo']);
 
 const addTodoHandler = () => {
   if (todo.value.length >= 3) {
-    // 작성된 할 일(this.todo)을
-    // 부모 컴포넌트(App.vue)로 전달하기!
-    // -> 이벤트 발신(emit) 이용
+    // 부모 컴포넌트로 'add-todo' 이벤트 발신
+    emit('add-todo', todo.value);
 
-    // $emit(이벤트명, 페이로드): 이벤트 발신 메서드
-    $emit('add-todo', todo.value);
-    todo.value = ''; //입력된 내용 삭제
+    todo.value = ''; // 입력된 내용 삭제
   } else {
-    alert('할 일은 3글자 이상으로 작성해주세요');
+    alert('할 일은 3글자 이상으로 작성해주세요!!');
   }
 };
 </script>
